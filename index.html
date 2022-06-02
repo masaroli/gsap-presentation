@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - Slide Transitions</title>
+
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/black.css" id="theme">
+		<style type="text/css" media="screen">
+			:root {
+				--r-background-color: #020204;
+			}
+			.slides section.has-dark-background,
+			.slides section.has-dark-background h3 {
+				color: #fff;
+			}
+			.slides section.has-light-background,
+			.slides section.has-light-background h3 {
+				color: #222;
+			}
+
+			section h3 {
+				text-align: center;
+			}
+
+		</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+
+				<section data-transition="convex">
+					<h3 id="title">GSAP</h3>
+					<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/logo.gif" alt="GreenSock logo">
+					<p class="text-center" data-animation="paragraph">Many ways to do it, many ways to master it</p>
+				</section>
+
+				<section data-transition="convex">
+					<h3>Let's talk about GSAP</h3>
+					<p class="text-center">I prepare some topics while we see some real scenarios of implementation</p>
+				</section>
+				<section data-transition="convex">
+					<h3>Timelines vs Tweens</h3>
+					<p>Differences between them</p>
+					<p>When to use tween when to use timeline</p>
+				</section>
+				<section data-transition="convex">
+					<h3>Not only for animating CSS</h3>
+					<p>You can animate object properties too</p>
+				</section>
+				<section data-transition="convex">
+					<h3>Getting the elements in a reactive enviromment</h3>
+					<p>GSAP Utils selector example</p>
+				</section>
+				<section data-transition="convex">
+					<h3>Having fun with Yoyo</h3>
+					<p>Example of yoyo property</p>
+				</section>
+				<section data-transition="convex">
+					<h3>GSAP 3 Promise based animations</h3>
+				</section>
+				<section data-transition="convex">
+					<h3>A11y "friendly"</h3>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="../dist/reveal.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+		<script type="module">
+			import SplitText from './SplitText.js';
+			gsap.registerPlugin(SplitText);
+			function animateTitle() {
+				const tl = gsap.timeline({repeat: -1});
+				const splittedTitle = new SplitText("[data-animation='paragraph']", { type: "words,chars" })
+				const titleChars = splittedTitle.chars;
+
+				titleChars.forEach((char, index) => { 
+					gsap.fromTo(char, {y: 20, color:'white'}, {y: 0, duration: 0.5, color:"#91d529", ease:'Sine.InOut', delay: index * 0.1, yoyo:true, repeat: -1, repeatDelay: (titleChars.length - 1) * 0.010 })
+				})
+			}
+			animateTitle();
+
+		</script>
+		<script>
+			Reveal.initialize({
+				center: true,
+				history: true,
+
+				// transition: 'slide',
+				// transitionSpeed: 'slow',
+				// backgroundTransition: 'slide'
+			});
+
+
+
+
+			gsap.to('[data-animation="paragraph-1"]', {autoAlpha: 0, repeat:-1, yoyo:true})
+		</script>
+
+	</body>
+</html>
